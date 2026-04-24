@@ -1,3 +1,4 @@
+// Aura Search - Frontend Logic (Live Deployment Trigger)
 const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
     ? "http://localhost:8000" 
     : "https://aura-search-api.onrender.com"; // UPDATE THIS AFTER DEPLOYING BACKEND
