@@ -43,11 +43,11 @@ def initialize_trie():
 initialize_trie()
 
 @app.get("/search")
-async def search(q: str = Query(..., min_length=1)):
+async def search(q: str = Query(..., min_length=1), k: int = 6, cs: int = 0):
     start_time = time.time()
     
     # Normal prefix search
-    results = search_trie.search(q, k=6)
+    results = search_trie.search(q, k=k, case_sensitive=bool(cs))
     
     # If no results, try fuzzy search
     if not results and len(q) > 2:

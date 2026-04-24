@@ -24,13 +24,14 @@ class Trie:
         node.frequency += frequency
         node.word = word
 
-    def search(self, prefix, k=5):
-        cache_key = f"prefix_{prefix}_{k}"
+    def search(self, prefix, k=5, case_sensitive=False):
+        cache_key = f"prefix_{prefix}_{k}_{case_sensitive}"
         if cache_key in self.cache:
             return self.cache[cache_key]
 
         node = self.root
-        for char in prefix.lower():
+        search_prefix = prefix if case_sensitive else prefix.lower()
+        for char in search_prefix:
             if char not in node.children:
                 return []
             node = node.children[char]

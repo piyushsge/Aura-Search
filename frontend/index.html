@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartSearch Elite | AI Search Engine</title>
+    <title>Aura Search | AI-Powered Semantic Engine</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
 
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
-        <div class="brand">SmartSearch Elite</div>
+        <div class="brand">Aura Search</div>
         <nav class="nav-menu">
             <div class="nav-item active" data-page="search">
                 <i class="fas fa-search"></i>
@@ -57,8 +57,8 @@
     <!-- Main Content -->
     <main>
         <div class="top-bar">
-            <div id="language-toggle" style="cursor: pointer; font-weight: 600; font-size: 0.9rem;">EN | हिंदी</div>
-            <div class="theme-trigger" id="theme-toggle" style="cursor: pointer; font-size: 1.2rem; opacity: 0.8;">
+            <div id="language-toggle" role="button" aria-label="Toggle Language" style="cursor: pointer; font-weight: 600; font-size: 0.9rem;">EN | हिंदी</div>
+            <div class="theme-trigger" id="theme-toggle" role="button" aria-label="Toggle Theme" style="cursor: pointer; font-size: 1.2rem; opacity: 0.8;">
                 <i class="fas fa-moon"></i>
             </div>
             <div class="auth-btn" style="padding: 0.6rem 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.05); cursor: pointer; border: 1px solid var(--glass-border);">Log Out</div>
@@ -77,8 +77,9 @@
 
                 <div class="search-container" id="search-container-3d">
                     <div class="neon-border"></div>
+                    <label for="search-input" class="sr-only">Search</label>
                     <input type="text" class="search-box-3d" id="search-input" data-i18n="search-placeholder" placeholder="Search for ideas, code, or trends..." autocomplete="off">
-                    <div class="voice-pulse" id="voice-btn">
+                    <div class="voice-pulse" id="voice-btn" role="button" aria-label="Voice Search">
                         <i class="fas fa-microphone"></i>
                     </div>
                     <div class="suggestions-3d" id="suggestions-box">
@@ -238,17 +239,18 @@
                 <div class="glass-card" style="padding: 1rem 1.5rem; margin-bottom: 2rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
                     <div style="flex: 1; position: relative; min-width: 200px;">
                         <i class="fas fa-search" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); opacity: 0.5;"></i>
+                        <label for="history-filter-input" class="sr-only">Filter history</label>
                         <input type="text" id="history-filter-input" data-i18n="filter-placeholder" placeholder="Filter history..." style="width: 100%; padding: 0.8rem 1rem 0.8rem 2.5rem; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 12px; color: white; outline: none;">
                     </div>
                     
-                    <select id="history-date-filter" style="padding: 0.8rem; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 12px; color: white; outline: none; cursor: pointer;">
+                    <select id="history-date-filter" aria-label="Filter by date" style="padding: 0.8rem; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 12px; color: white; outline: none; cursor: pointer;">
                         <option value="all" style="background: var(--bg-dark);">All Time</option>
                         <option value="today" style="background: var(--bg-dark);">Today</option>
                         <option value="week" style="background: var(--bg-dark);">This Week</option>
                         <option value="month" style="background: var(--bg-dark);">This Month</option>
                     </select>
 
-                    <select id="history-sort" style="padding: 0.8rem; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 12px; color: white; outline: none; cursor: pointer;">
+                    <select id="history-sort" aria-label="Sort history" style="padding: 0.8rem; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 12px; color: white; outline: none; cursor: pointer;">
                         <option value="recent" style="background: var(--bg-dark);">Most Recent</option>
                         <option value="frequent" style="background: var(--bg-dark);">Most Searched</option>
                     </select>
@@ -417,11 +419,11 @@
                             <div class="profile-avatar-large" id="profile-avatar-display">PG</div>
                             <div style="flex: 1;">
                                 <div class="form-group">
-                                    <label>Display Name</label>
+                                    <label for="settings-display-name">Display Name</label>
                                     <input type="text" id="settings-display-name" class="settings-input" value="Piyush Gupta">
                                 </div>
                                 <div class="form-group" style="margin-top: 1rem;">
-                                    <label>Email Address</label>
+                                    <label for="settings-email">Email Address</label>
                                     <input type="email" id="settings-email" class="settings-input" value="piyush.pro@example.com">
                                 </div>
                             </div>
@@ -471,16 +473,16 @@
                         <h3><i class="fas fa-globe"></i> Language & Region</h3>
                         <div class="settings-group">
                             <div class="form-group">
-                                <label>Primary Language</label>
-                                <select id="settings-language" class="settings-select" onchange="updateSelectSetting('language', this)">
+                                <label for="settings-language">Primary Language</label>
+                                <select id="settings-language" class="settings-select" onchange="updateSelectSetting('language', this)" aria-label="Select Primary Language">
                                     <option value="EN">English (US)</option>
                                     <option value="HI">Hindi (IN)</option>
                                     <option value="ES">Spanish (ES)</option>
                                 </select>
                             </div>
                             <div class="form-group" style="margin-top: 1rem;">
-                                <label>Search Region</label>
-                                <select id="settings-region" class="settings-select" onchange="updateSelectSetting('region', this)">
+                                <label for="settings-region">Search Region</label>
+                                <select id="settings-region" class="settings-select" onchange="updateSelectSetting('region', this)" aria-label="Select Search Region">
                                     <option value="global">Global</option>
                                     <option value="na">North America</option>
                                     <option value="ap">Asia Pacific</option>
@@ -528,7 +530,8 @@
                                         <div class="setting-title">Max Suggestions</div>
                                         <div class="setting-desc">Number of dropdown items</div>
                                     </div>
-                                    <select id="settings-max-suggestions" class="settings-select" style="width: 80px;" onchange="updateSelectSetting('max-suggestions', this)">
+                                    <label for="settings-max-suggestions">Max Suggestions</label>
+                                    <select id="settings-max-suggestions" class="settings-select" style="width: 80px;" onchange="updateSelectSetting('max-suggestions', this)" aria-label="Select Maximum Suggestions">
                                         <option value="5">5</option>
                                         <option value="10" selected>10</option>
                                         <option value="15">15</option>

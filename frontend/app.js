@@ -14,6 +14,7 @@ const customCursor = document.getElementById("custom-cursor");
 const cursorFollower = document.getElementById("custom-cursor-follower");
 const navItems = document.querySelectorAll(".nav-item");
 const pages = document.querySelectorAll(".page");
+const searchPage = document.getElementById("search-page");
 
 let currentLanguage = "EN";
 let selectedIndex = -1;
@@ -62,7 +63,7 @@ function updateUIOnMouseMove() {
     sphere2.style.transform = `translate3d(${-nx * 80}px, ${-ny * 80}px, 0)`;
 
     // 3D Search Bar tilt (Only if visible)
-    if (searchContainer3D && document.getElementById('search-page').classList.contains('active')) {
+    if (searchContainer3D && searchPage.classList.contains('active')) {
         const rect = searchContainer3D.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
@@ -212,7 +213,8 @@ searchInput.addEventListener("input", (e) => {
         try {
             const start = performance.now();
             const k = globalSettings["max-suggestions"] || 10;
-            const response = await fetch(`${API_BASE}/search?q=${query}&k=${k}`);
+            const cs = globalSettings["case-sensitive"] ? 1 : 0;
+            const response = await fetch(`${API_BASE}/search?q=${query}&k=${k}&cs=${cs}`);
             const data = await response.json();
             const end = performance.now();
 

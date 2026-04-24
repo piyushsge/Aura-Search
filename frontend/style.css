@@ -12,6 +12,18 @@
     --cursor-glow: rgba(6, 182, 212, 0.6);
 }
 
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
 /* Day Mode (Light Theme) */
 body.light {
     --bg-dark: #f0f2f5;
