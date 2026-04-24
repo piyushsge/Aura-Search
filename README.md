@@ -1,5 +1,7 @@
 # 🌌 Aura Search | AI-Powered Semantic Engine
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/piyushsge/Aura-Search)
+
 A high-performance, contextual search platform built with a custom **Trie** data structure and a sleek, 3D-enhanced glassmorphism UI.
 
 ## 🚀 Key Features
