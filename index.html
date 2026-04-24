@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Search | AI-Powered Semantic Engine</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body class="dark">
+    <!-- Custom Cursor -->
+    <div id="custom-cursor"></div>
+    <div id="custom-cursor-follower"></div>
+
+    <!-- Parallax Background Elements -->
+    <div class="parallax-bg">
+        <div class="bg-sphere sphere-1" id="sphere-1"></div>
+        <div class="bg-sphere sphere-2" id="sphere-2"></div>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="brand">Aura Search</div>
+        <nav class="nav-menu">
+            <div class="nav-item active" data-page="search">
+                <i class="fas fa-search"></i>
+                <span data-i18n="nav-home">Search Hub</span>
+            </div>
+            <div class="nav-item" data-page="analytics">
+                <i class="fas fa-chart-pie"></i>
+                <span data-i18n="nav-analytics">Analytics</span>
+            </div>
+            <div class="nav-item" data-page="history">
+                <i class="fas fa-history"></i>
+                <span data-i18n="nav-history">History</span>
+            </div>
+            <div class="nav-item" data-page="trending">
+                <i class="fas fa-bolt"></i>
+                <span data-i18n="nav-trending">Trending</span>
+            </div>
+
+            <div class="nav-item" data-page="settings">
+                <i class="fas fa-cog"></i>
+                <span data-i18n="nav-settings">Settings</span>
+            </div>
+        </nav>
+        <div class="user-profile" style="margin-top: auto; display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 16px;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(45deg, var(--accent-purple), var(--accent-cyan));"></div>
+            <div>
+                <div style="font-size: 0.9rem; font-weight: 600;">Piyush Gupta</div>
+                <div style="font-size: 0.7rem; opacity: 0.5;">Pro Developer</div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+        <div class="top-bar">
+            <div id="language-toggle" role="button" aria-label="Toggle Language" style="cursor: pointer; font-weight: 600; font-size: 0.9rem;">EN | हिंदी</div>
+            <div class="theme-trigger" id="theme-toggle" role="button" aria-label="Toggle Theme" style="cursor: pointer; font-size: 1.2rem; opacity: 0.8;">
+                <i class="fas fa-moon"></i>
+            </div>
+            <div class="auth-btn" style="padding: 0.6rem 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.05); cursor: pointer; border: 1px solid var(--glass-border);">Log Out</div>
+        </div>
+
+        <section id="search-page" class="page active">
+            <div class="search-wrapper">
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <h1 class="hero-title" style="font-size: 4rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -2px;" id="hero-title" data-i18n="hero-title">
+                        Next-Gen <span style="color: var(--accent-cyan); text-shadow: 0 0 20px var(--glow-cyan);">Contextual</span> Search.
+                    </h1>
+                    <p id="hero-subtitle" data-i18n="hero-subtitle" style="color: var(--text-secondary); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">
+                        Experience the power of sub-50ms autocomplete driven by advanced Trie structures and AI-based logic.
+                    </p>
+                </div>
+
+                <div class="search-container" id="search-container-3d">
+                    <div class="neon-border"></div>
+                    <label for="search-input" class="sr-only">Search</label>
+                    <input type="text" class="search-box-3d" id="search-input" data-i18n="search-placeholder" placeholder="Search for ideas, code, or trends..." autocomplete="off">
+                    <div class="voice-pulse" id="voice-btn" role="button" aria-label="Voice Search">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <div class="suggestions-3d" id="suggestions-box">
+                        <!-- Suggestions will be injected here -->
+                    </div>
+                </div>
+                
+                <div id="latency-info" style="margin-top: 2rem; font-size: 0.8rem; font-family: monospace; color: var(--accent-cyan); opacity: 0.7;">
+                    SYSTEM READY // LATENCY: 0.00ms
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="glass-card">
+                    <h3><i class="fas fa-fire"></i> <span id="trending-title" data-i18n="trending-title">Trending Now</span></h3>
+                    <div id="trending-list">
+                        <!-- Trends will be injected here -->
+                    </div>
+                </div>
+                <div class="glass-card">
+                    <h3><i class="fas fa-history"></i> <span id="history-title" data-i18n="history-title">Recent Queries</span></h3>
+                    <div id="history-list">
+                        <!-- History will be injected here -->
+                    </div>
+                </div>
+                <div class="glass-card" style="grid-column: span 1;">
+                    <h3><i class="fas fa-microchip"></i> <span id="analytics-title" data-i18n="analytics-title">Engine Metrics</span></h3>
+                    <div id="metrics-content">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem;">
+                            <span>Indexed Terms</span>
+                            <span style="color: var(--accent-cyan); font-weight: 800;">12,482</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem;">
+                            <span>Avg. Response</span>
+                            <span style="color: var(--accent-purple); font-weight: 800;">32ms</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>AI Confidence</span>
+                            <span style="color: #10b981; font-weight: 800;">99.4%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="analytics-page" class="page">
+            <div style="margin-top: 5vh;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem;">
+                    <div>
+                        <h1 style="font-size: 3rem; font-weight: 800; letter-spacing: -2px;">Neural Intelligence <span style="color: var(--accent-cyan);">Dashboard</span></h1>
+                        <p style="opacity: 0.6;">Real-time semantic analysis and engine performance metrics.</p>
+                    </div>
+                    <div style="padding: 0.5rem 1rem; border-radius: 12px; background: rgba(6, 182, 212, 0.1); color: var(--accent-cyan); font-size: 0.8rem; border: 1px solid var(--glow-cyan);">
+                        <i class="fas fa-sync fa-spin"></i> LIVE STREAMING
+                    </div>
+                </div>
+                
+                <!-- TOP SUMMARY CARDS -->
+                <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                    <div class="glass-card" style="padding: 1.5rem;">
+                        <small style="opacity: 0.5;">TOTAL SEARCHES</small>
+                        <h2 id="stat-total" style="color: var(--accent-cyan); margin-top: 0.5rem;">0</h2>
+                    </div>
+                    <div class="glass-card" style="padding: 1.5rem;">
+                        <small style="opacity: 0.5;">AVG RESPONSE</small>
+                        <h2 id="stat-latency" style="color: var(--accent-purple); margin-top: 0.5rem;">32ms</h2>
+                    </div>
+                    <div class="glass-card" style="padding: 1.5rem;">
+                        <small style="opacity: 0.5;">SUCCESS RATE</small>
+                        <h2 style="color: #10b981; margin-top: 0.5rem;">99.8%</h2>
+                    </div>
+                    <div class="glass-card" style="padding: 1.5rem;">
+                        <small style="opacity: 0.5;">TOP KEYWORD</small>
+                        <h2 id="stat-top" style="font-size: 1.2rem; margin-top: 0.5rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">-</h2>
+                    </div>
+                    <div class="glass-card" style="padding: 1.5rem;">
+                        <small style="opacity: 0.5;">ACCURACY</small>
+                        <h2 style="color: var(--accent-cyan); margin-top: 0.5rem;">94.2%</h2>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                    <!-- TREND GRAPH -->
+                    <div class="glass-card" style="height: 350px; position: relative;">
+                        <h3><i class="fas fa-chart-line"></i> Search Activity (7-Day Trend)</h3>
+                        <div id="chart-container" style="width: 100%; height: 250px; margin-top: 1rem;">
+                            <svg id="trend-svg" width="100%" height="100%" viewBox="0 0 800 200" preserveAspectRatio="none">
+                                <defs>
+                                    <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:var(--accent-cyan);stop-opacity:0.3" />
+                                        <stop offset="100%" style="stop-color:var(--accent-cyan);stop-opacity:0" />
+                                    </linearGradient>
+                                </defs>
+                                <path id="trend-path-bg" fill="url(#gradient)" d="M0,200 L0,200 L800,200 L800,200 Z"></path>
+                                <path id="trend-path" fill="none" stroke="var(--accent-cyan)" stroke-width="3" stroke-linecap="round" d="M0,200 L0,200"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- USER BEHAVIOR -->
+                    <div class="glass-card">
+                        <h3><i class="fas fa-brain"></i> Category Usage</h3>
+                        <div id="category-stats" style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
+                            <!-- Category bars will be injected here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+                    <!-- TRIE PERFORMANCE -->
+                    <div class="glass-card">
+                        <h3><i class="fas fa-bolt"></i> Performance Metrics</h3>
+                        <div style="margin-top: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span>Trie Complexity</span>
+                                <span style="color: var(--accent-cyan); font-weight: 800;">O(L)</span>
+                            </div>
+                            <div style="height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px;">
+                                <div style="width: 100%; height: 100%; background: var(--accent-cyan); box-shadow: 0 0 10px var(--glow-cyan);"></div>
+                            </div>
+                            <p style="font-size: 0.7rem; opacity: 0.5; margin-top: 0.5rem;">Optimized for string length L, independent of database size N.</p>
+                        </div>
+                    </div>
+
+                    <!-- TRENDING TAGS -->
+                    <div class="glass-card">
+                        <h3><i class="fas fa-tags"></i> Trending Keywords</h3>
+                        <div id="trending-tags-cloud" style="display: flex; wrap: wrap; gap: 0.5rem; margin-top: 1.5rem;">
+                            <!-- Tags will be injected here -->
+                        </div>
+                    </div>
+
+                    <!-- AI INSIGHTS -->
+                    <div class="glass-card" style="border: 1px solid var(--accent-purple);">
+                        <h3><i class="fas fa-robot"></i> AI Predictions</h3>
+                        <div id="ai-insights-content" style="margin-top: 1rem; font-size: 0.9rem; line-height: 1.6;">
+                            <p style="color: var(--accent-purple); font-weight: 600;">Next Probable Queries:</p>
+                            <ul id="ai-prediction-list" style="list-style: none; margin-top: 0.5rem;">
+                                <!-- AI items will be injected here -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="history-page" class="page">
+            <div style="margin-top: 5vh; max-width: 1200px; margin-left: auto; margin-right: auto;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;">
+                    <div>
+                        <h1 style="font-size: 3rem; font-weight: 800; letter-spacing: -2px;" data-i18n="history-hero">Activity <span style="color: var(--accent-purple);">Log</span></h1>
+                        <p style="opacity: 0.6;" data-i18n="history-sub">Your personal, encrypted search history and AI insights.</p>
+                    </div>
+                </div>
+
+                <!-- HEADER CONTROLS -->
+                <div class="glass-card" style="padding: 1rem 1.5rem; margin-bottom: 2rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                    <div style="flex: 1; position: relative; min-width: 200px;">
+                        <i class="fas fa-search" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); opacity: 0.5;"></i>
+                        <label for="history-filter-input" class="sr-only">Filter history</label>
+                        <input type="text" id="history-filter-input" data-i18n="filter-placeholder" placeholder="Filter history..." style="width: 100%; padding: 0.8rem 1rem 0.8rem 2.5rem; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 12px; color: white; outline: none;">
+                    </div>
+                    
+                    <select id="history-date-filter" aria-label="Filter by date" style="padding: 0.8rem; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 12px; color: white; outline: none; cursor: pointer;">
+                        <option value="all" style="background: var(--bg-dark);">All Time</option>
+                        <option value="today" style="background: var(--bg-dark);">Today</option>
+                        <option value="week" style="background: var(--bg-dark);">This Week</option>
+                        <option value="month" style="background: var(--bg-dark);">This Month</option>
+                    </select>
+
+                    <select id="history-sort" aria-label="Sort history" style="padding: 0.8rem; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 12px; color: white; outline: none; cursor: pointer;">
+                        <option value="recent" style="background: var(--bg-dark);">Most Recent</option>
+                        <option value="frequent" style="background: var(--bg-dark);">Most Searched</option>
+                    </select>
+
+                    <button id="clear-history-btn" style="padding: 0.8rem 1.5rem; background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 12px; cursor: pointer; transition: 0.3s; font-weight: 600;">
+                        <i class="fas fa-trash-alt"></i> Clear All
+                    </button>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                    <!-- MAIN HISTORY LIST -->
+                    <div style="display: flex; flex-direction: column; gap: 1rem;" id="full-history-list">
+                        <!-- History cards will be injected here -->
+                        <div style="text-align: center; padding: 3rem; opacity: 0.5;">Loading history...</div>
+                    </div>
+
+                    <!-- SIDEBAR -->
+                    <div style="display: flex; flex-direction: column; gap: 2rem;">
+                        
+                        <!-- HISTORY INSIGHTS -->
+                        <div class="glass-card">
+                            <h3><i class="fas fa-chart-pie"></i> Insights</h3>
+                            <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                    <span style="opacity: 0.7;">Top Search</span>
+                                    <span id="history-insight-top" style="color: var(--accent-cyan); font-weight: 600;">-</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                    <span style="opacity: 0.7;">Total Queries Logged</span>
+                                    <span id="history-insight-count" style="color: var(--accent-purple); font-weight: 600;">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAVORITES -->
+                        <div class="glass-card">
+                            <h3><i class="fas fa-star" style="color: #f59e0b;"></i> Favorites</h3>
+                            <div id="favorites-list" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                                <!-- Favorites injected here -->
+                                <div style="opacity: 0.4; font-size: 0.8rem;">No favorites yet.</div>
+                            </div>
+                        </div>
+
+                        <!-- SMART SUGGESTIONS -->
+                        <div class="glass-card" style="border: 1px solid var(--accent-purple); box-shadow: inset 0 0 20px rgba(168, 85, 247, 0.1);">
+                            <h3><i class="fas fa-lightbulb"></i> Smart Suggestions</h3>
+                            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.5rem; margin-bottom: 1rem;">Based on your recent activity.</p>
+                            <div id="history-smart-suggestions" style="display: flex; flex-direction: column; gap: 0.8rem;">
+                                <!-- Smart suggestions injected here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="trending-page" class="page">
+            <div style="margin-top: 5vh; max-width: 1200px; margin-left: auto; margin-right: auto;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;">
+                    <div>
+                        <h1 style="font-size: 3rem; font-weight: 800; letter-spacing: -2px;" data-i18n="trend-hero">Trend <span style="color: var(--accent-cyan);">Intelligence</span></h1>
+                        <p style="opacity: 0.6;" data-i18n="trend-sub">Real-time semantic analysis of network queries and growth velocity.</p>
+                    </div>
+                </div>
+
+                <!-- TREND OVERVIEW -->
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                    <div class="glass-card" style="padding: 1.5rem; text-align: center;">
+                        <small style="opacity: 0.5;">ACTIVE TRENDS</small>
+                        <h2 id="trend-stat-total" style="color: var(--text-primary); margin-top: 0.5rem;">0</h2>
+                    </div>
+                    <div class="glass-card" style="padding: 1.5rem; text-align: center;">
+                        <small style="opacity: 0.5;">FASTEST GROWING</small>
+                        <h2 id="trend-stat-fastest" style="color: var(--accent-cyan); margin-top: 0.5rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">-</h2>
+                    </div>
+                    <div class="glass-card" style="padding: 1.5rem; text-align: center;">
+                        <small style="opacity: 0.5;">TOP VELOCITY</small>
+                        <h2 id="trend-stat-velocity" style="color: #10b981; margin-top: 0.5rem;">+0%</h2>
+                    </div>
+                    <div class="glass-card" style="padding: 1.5rem; text-align: center;">
+                        <small style="opacity: 0.5;">AI PREDICTION</small>
+                        <h2 id="trend-stat-ai" style="color: var(--accent-purple); margin-top: 0.5rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">-</h2>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <!-- TREND GRAPH -->
+                    <div class="glass-card" style="height: 400px; position: relative;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h3><i class="fas fa-chart-area"></i> Search Velocity Matrix</h3>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.7rem;">Today</button>
+                                <button class="btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.7rem; border-color: var(--accent-cyan); color: var(--accent-cyan);">Week</button>
+                                <button class="btn-secondary" style="padding: 0.3rem 0.8rem; font-size: 0.7rem;">Month</button>
+                            </div>
+                        </div>
+                        <div id="trend-matrix-container" style="width: 100%; height: 300px; position: relative; overflow: hidden;">
+                            <svg id="velocity-svg" width="100%" height="100%" viewBox="0 0 800 300" preserveAspectRatio="none">
+                                <!-- Paths injected via JS -->
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- RISING VS FALLING -->
+                    <div class="glass-card" style="height: 400px; overflow: hidden; display: flex; flex-direction: column;">
+                        <h3><i class="fas fa-sort-amount-up"></i> Momentum Shift</h3>
+                        <div style="display: flex; gap: 1rem; margin-top: 1rem; flex: 1; overflow: hidden;">
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 0.5rem;">
+                                <div style="font-size: 0.8rem; opacity: 0.5; margin-bottom: 0.5rem;">SURGING</div>
+                                <div id="momentum-surging" style="overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; padding-right: 0.5rem;"></div>
+                            </div>
+                            <div style="width: 1px; background: rgba(255,255,255,0.1);"></div>
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 0.5rem;">
+                                <div style="font-size: 0.8rem; opacity: 0.5; margin-bottom: 0.5rem;">DECLINING</div>
+                                <div id="momentum-declining" style="overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; padding-right: 0.5rem;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 2rem;">
+                    <!-- CATEGORY TRENDS -->
+                    <div class="glass-card">
+                        <h3><i class="fas fa-project-diagram"></i> Network Topology</h3>
+                        <div id="category-topology" style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
+                            <!-- Category items -->
+                        </div>
+                    </div>
+
+                    <!-- TOP TRENDING RANKING -->
+                    <div class="glass-card">
+                        <h3><i class="fas fa-trophy"></i> Elite Keywords</h3>
+                        <div id="elite-keywords-list" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.8rem;">
+                            <!-- Ranked items -->
+                        </div>
+                    </div>
+
+                    <!-- AI INSIGHTS -->
+                    <div class="glass-card" style="border: 1px solid var(--accent-cyan); box-shadow: inset 0 0 30px rgba(6, 182, 212, 0.05);">
+                        <h3><i class="fas fa-network-wired"></i> Neural Analysis</h3>
+                        <div id="trend-ai-insights" style="margin-top: 1rem; font-size: 0.9rem; line-height: 1.6;">
+                            <p style="opacity: 0.7; margin-bottom: 1rem;">Based on current velocity, the semantic engine predicts the following emerging nodes:</p>
+                            <div id="trend-predictions" style="display: flex; flex-direction: column; gap: 0.8rem;">
+                                <!-- Predictions -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SETTINGS PAGE -->
+        <section id="settings-page" class="page">
+            <div style="margin-top: 5vh; max-width: 1000px; margin-left: auto; margin-right: auto;">
+                <div style="margin-bottom: 3rem;">
+                    <h1 style="font-size: 3rem; font-weight: 800; letter-spacing: -2px;" data-i18n="settings-hero">Platform <span style="color: var(--accent-cyan);">Settings</span></h1>
+                    <p style="opacity: 0.6;" data-i18n="settings-sub">Manage your preferences, profile, and system configuration.</p>
+                </div>
+
+                <div class="settings-layout">
+                    <!-- PROFILE SETTINGS -->
+                    <div class="glass-card settings-card" style="grid-column: span 2;">
+                        <h3><i class="fas fa-user-circle"></i> Profile Settings</h3>
+                        <div style="display: flex; gap: 2rem; align-items: center; margin-top: 1.5rem;">
+                            <div class="profile-avatar-large" id="profile-avatar-display">PG</div>
+                            <div style="flex: 1;">
+                                <div class="form-group">
+                                    <label for="settings-display-name">Display Name</label>
+                                    <input type="text" id="settings-display-name" class="settings-input" value="Piyush Gupta">
+                                </div>
+                                <div class="form-group" style="margin-top: 1rem;">
+                                    <label for="settings-email">Email Address</label>
+                                    <input type="email" id="settings-email" class="settings-input" value="piyush.pro@example.com">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                            <button class="btn-primary" onclick="saveProfile()">Save Profile</button>
+                            <button class="btn-secondary" onclick="alert('Password reset link sent to email!')">Change Password</button>
+                        </div>
+                    </div>
+
+                    <!-- APPEARANCE -->
+                    <div class="glass-card settings-card">
+                        <h3><i class="fas fa-paint-brush"></i> Appearance</h3>
+                        <div class="settings-group">
+                            <div class="setting-item">
+                                <div>
+                                    <div class="setting-title">Day/Night Mode</div>
+                                    <div class="setting-desc">Switch between cinematic light and dark themes</div>
+                                </div>
+                                <div class="switch-3d active" id="settings-dark-mode" onclick="toggleSetting('dark-mode', this)">
+                                    <div class="switch-knob"></div>
+                                </div>
+                            </div>
+                            <div class="setting-item">
+                                <div>
+                                    <div class="setting-title">Neon Glow</div>
+                                    <div class="setting-desc">Enable 3D glassmorphism effects</div>
+                                </div>
+                                <div class="switch-3d active" id="settings-neon-glow" onclick="toggleSetting('neon-glow', this)">
+                                    <div class="switch-knob"></div>
+                                </div>
+                            </div>
+                            <div class="setting-item" style="flex-direction: column; align-items: flex-start; gap: 0.5rem;">
+                                <div class="setting-title">Theme Accent</div>
+                                <div style="display: flex; gap: 1rem; margin-top: 0.5rem;" id="theme-accent-selector">
+                                    <div class="color-circle active" style="background: #06b6d4;" data-color="#06b6d4" onclick="setAccent('#06b6d4', this)"></div>
+                                    <div class="color-circle" style="background: #a855f7;" data-color="#a855f7" onclick="setAccent('#a855f7', this)"></div>
+                                    <div class="color-circle" style="background: #10b981;" data-color="#10b981" onclick="setAccent('#10b981', this)"></div>
+                                    <div class="color-circle" style="background: #f59e0b;" data-color="#f59e0b" onclick="setAccent('#f59e0b', this)"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LANGUAGE & REGION -->
+                    <div class="glass-card settings-card">
+                        <h3><i class="fas fa-globe"></i> Language & Region</h3>
+                        <div class="settings-group">
+                            <div class="form-group">
+                                <label for="settings-language">Primary Language</label>
+                                <select id="settings-language" class="settings-select" onchange="updateSelectSetting('language', this)" aria-label="Select Primary Language">
+                                    <option value="EN">English (US)</option>
+                                    <option value="HI">Hindi (IN)</option>
+                                    <option value="ES">Spanish (ES)</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-top: 1rem;">
+                                <label for="settings-region">Search Region</label>
+                                <select id="settings-region" class="settings-select" onchange="updateSelectSetting('region', this)" aria-label="Select Search Region">
+                                    <option value="global">Global</option>
+                                    <option value="na">North America</option>
+                                    <option value="ap">Asia Pacific</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SEARCH PREFERENCES -->
+                    <div class="glass-card settings-card" style="grid-column: span 2;">
+                        <h3><i class="fas fa-sliders-h"></i> Search Preferences</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem;">
+                            <div class="settings-group">
+                                <div class="setting-item">
+                                    <div>
+                                        <div class="setting-title">Real-time Autocomplete</div>
+                                        <div class="setting-desc">Show suggestions while typing</div>
+                                    </div>
+                                    <div class="switch-3d active" id="settings-autocomplete" onclick="toggleSetting('autocomplete', this)">
+                                        <div class="switch-knob"></div>
+                                    </div>
+                                </div>
+                                <div class="setting-item">
+                                    <div>
+                                        <div class="setting-title">Personalized Suggestions</div>
+                                        <div class="setting-desc">Tailor results to your habits</div>
+                                    </div>
+                                    <div class="switch-3d active" id="settings-personalize" onclick="toggleSetting('personalize', this)">
+                                        <div class="switch-knob"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="settings-group">
+                                <div class="setting-item">
+                                    <div>
+                                        <div class="setting-title">Case Sensitive</div>
+                                        <div class="setting-desc">Match exact casing in queries</div>
+                                    </div>
+                                    <div class="switch-3d" id="settings-case-sensitive" onclick="toggleSetting('case-sensitive', this)">
+                                        <div class="switch-knob"></div>
+                                    </div>
+                                </div>
+                                <div class="setting-item">
+                                    <div>
+                                        <div class="setting-title">Max Suggestions</div>
+                                        <div class="setting-desc">Number of dropdown items</div>
+                                    </div>
+                                    <label for="settings-max-suggestions">Max Suggestions</label>
+                                    <select id="settings-max-suggestions" class="settings-select" style="width: 80px;" onchange="updateSelectSetting('max-suggestions', this)" aria-label="Select Maximum Suggestions">
+                                        <option value="5">5</option>
+                                        <option value="10" selected>10</option>
+                                        <option value="15">15</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PRIVACY & NOTIFICATIONS -->
+                    <div class="glass-card settings-card">
+                        <h3><i class="fas fa-shield-alt"></i> Privacy & Notifications</h3>
+                        <div class="settings-group">
+                            <div class="setting-item">
+                                <div>
+                                    <div class="setting-title">System Notifications</div>
+                                    <div class="setting-desc">Alerts for system updates</div>
+                                </div>
+                                <div class="switch-3d active" id="settings-notifications" onclick="toggleSetting('notifications', this)">
+                                    <div class="switch-knob"></div>
+                                </div>
+                            </div>
+                            <div class="setting-item">
+                                <div>
+                                    <div class="setting-title">Save Search History</div>
+                                    <div class="setting-desc">Keep record of your queries</div>
+                                </div>
+                                <div class="switch-3d active" id="settings-save-history" onclick="toggleSetting('save-history', this)">
+                                    <div class="switch-knob"></div>
+                                </div>
+                            </div>
+                            <button class="btn-danger" style="margin-top: 1rem; width: 100%;" id="clear-history-btn">Clear All User Data</button>
+                        </div>
+                    </div>
+
+                    <!-- ADVANCED -->
+                    <div class="glass-card settings-card">
+                        <h3><i class="fas fa-microchip"></i> Advanced Settings</h3>
+                        <div class="settings-group">
+                            <div class="setting-item">
+                                <div>
+                                    <div class="setting-title">Performance Mode</div>
+                                    <div class="setting-desc">Prioritize speed over UI effects</div>
+                                </div>
+                                <div class="switch-3d" id="settings-performance" onclick="toggleSetting('performance', this)">
+                                    <div class="switch-knob"></div>
+                                </div>
+                            </div>
+                            <div class="setting-item">
+                                <div>
+                                    <div class="setting-title">Experimental AI Models</div>
+                                    <div class="setting-desc">Enable beta prediction logic</div>
+                                </div>
+                                <div class="switch-3d" id="settings-ai-features" onclick="toggleSetting('ai-features', this)">
+                                    <div class="switch-knob"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
